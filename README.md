@@ -50,7 +50,7 @@ Build instructions
 
  4. Install any other Python versions you want to build wheels for.
 
-    Only the Python X.Y versions that have pyxy\ directories are supported.
+    Only the Python X.Y versions that have `pyXY\` directories are supported.
 
  5. Install the `wheel` package for all Python versions. Taking Python 3.4
     as an example, the following command will do it:
@@ -69,7 +69,7 @@ Build instructions
         build_wheels.bat 3.4 3.6-32
 
     `build-wheels.bat` first builds PDCurses, and then builds and links the
-    source code in pyXY\ for each of the specified Python version, producing
+    source code in `pyXY\` for each of the specified Python version, producing
     wheels as output. The wheels are stored in dist\.
 
 Compatibility note
