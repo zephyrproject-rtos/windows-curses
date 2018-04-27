@@ -72,8 +72,13 @@ Build instructions
     source code in `pyXY\` for each of the specified Python version, producing
     wheels as output. The wheels are stored in dist\.
 
-Compatibility note
-------------------
+Compatibility notes
+-------------------
 
-This building scheme above should be the safest one to use. In practice, many
-of the resulting wheels seem to be forwards- and backwards-compatible.
+- This building scheme above should be the safest one to use. In practice, many
+  of the resulting wheels seem to be forwards- and backwards-compatible.
+
+- To be perfectly safe, PDCurses probably ought to be built with the same compiler
+  that builds the native C Python extension. Currently, it will use the
+  default compiler for the Development Command Prompt. The wheel will automatically
+  be built with the right compiler though, erroring out if it isn't installed.
