@@ -69,7 +69,7 @@ Build instructions
         build_wheels.bat 3.4 3.6
 
     `build-wheels.bat` first builds PDCurses, and then builds and links the
-    source code in `pyXY\` for each of the specified Python version, producing
+    source code in `pyXY\` for each of the specified Python version, producing
     wheels as output. The wheels are stored in dist\.
 
 Compatibility note
