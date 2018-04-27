@@ -27,7 +27,7 @@ define_macros = [
 srcdir = 'py%i%i//' % sys.version_info[:2]
 
 setup(
-    name='curses',
+    name='windows_curses',
     version='2.2',
     url='http://bugs.python.org/issue2889',
     license='PSF2',
