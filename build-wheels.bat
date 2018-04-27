@@ -22,7 +22,6 @@ nmake -f Makefile.vc clean
 
 echo Building PDCurses
 
-:: nmake doesn't seem to have an option for switching the working directory
 nmake -f Makefile.vc WIDE=y UTF8=y
 if %errorlevel% neq 0 (
     popd
