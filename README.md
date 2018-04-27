@@ -64,10 +64,9 @@ Build instructions
  6. Run `build-wheels.bat` in the Visual Studio
     [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs),
     passing it the Python versions you want to build wheels for. For example,
-    the following command will build wheels for the Python 3.4 and the 32-bit
-    version of Python 3.6:
+    the following command will build wheels for the Python 3.4 and 3.6.
 
-        build_wheels.bat 3.4 3.6-32
+        build_wheels.bat 3.4 3.6
 
     `build-wheels.bat` first builds PDCurses, and then builds and links the
     source code in `pyXY\` for each of the specified Python version, producing
