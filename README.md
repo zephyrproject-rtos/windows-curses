@@ -51,7 +51,7 @@ Build instructions
 
  4. Install any other Python versions you want to build wheels for.
 
-    Only the Python X.Y versions that have `pyXY\` directories are supported.
+    Only the Python X.Y versions that have `pyXY\` directories are supported.
 
  5. Install the `wheel` package for all Python versions. Taking Python 3.4
     as an example, the following command will do it:
