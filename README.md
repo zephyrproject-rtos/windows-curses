@@ -47,7 +47,7 @@ Build instructions
     https://wiki.python.org/moin/WindowsCompilers.
 
  3. Install Python 3.3 or later to get
-    [the Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
+    the [Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
 
  4. Install any other Python versions you want to build wheels for.
 
@@ -61,24 +61,39 @@ Build instructions
     `py` is the Python launcher, which makes it easy to run a particular Python
     version.
 
- 6. Run `build-wheels.bat` in the Visual Studio
-    [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs),
-    passing it the Python versions you want to build wheels for. For example,
-    the following command will build wheels for the Python 3.4 and 3.6.
+ 6. Open the Visual Studio
+    [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs)
+    of the compiler required by the version of Python that you want to build
+    wheels for.
 
-        build_wheels.bat 3.4 3.6
+    Use the 32-bit version (e.g. `VS2015 x86 Native Tools Command Prompt`) to build wheels for 32-bit
+    Python versions, and the 64-bit version (e.g.
+    `VS2015 x64 Native Tools Command Prompt`) to build wheels for 64-bit Python versions.
 
-    `build-wheels.bat` first builds PDCurses, and then builds and links the
-    source code in `pyXY\` for each of the specified Python version, producing
-    wheels as output. The wheels are stored in dist\.
+ 7. Run `build-wheels.bat`, passing it the Python version you're building a
+    wheel for. For example, the following command will build a wheel for
+    Python 3.5:
+
+        build_wheels.bat 3.5
+
+    If you have both 32-bit and 64-bit versions of the same Python version
+    installed and are building a 32-bit wheel, add "-32" to the version
+    number, like in the following example:
+
+        build_wheels.bat 3.5-32
+
+    If you are building multiple wheels for Python versions that are all
+    compatible with the same compiler, you can list all of them in the same
+    command:
+
+        build_wheels.bat 3.5 3.6
+
+    `build-wheels.bat` first cleans and rebuilds PDCurses, and then builds and
+    links the source code in `pyXY\` for each of the specified Python versions,
+    producing wheels as output in `dist\`.
 
 Compatibility notes
 -------------------
 
 - This building scheme above should be the safest one to use. In practice, many
   of the resulting wheels seem to be forwards- and backwards-compatible.
-
-- To be perfectly safe, PDCurses probably ought to be built with the same compiler
-  that builds the native C Python extension. Currently, it will use the
-  default compiler for the Development Command Prompt. The wheel will automatically
-  be built with the right compiler though, erroring out if it isn't installed.
