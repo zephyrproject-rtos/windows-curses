@@ -2,7 +2,8 @@ Python curses wheels for Windows
 ================================
 
 This repository has the source code for the Python curses wheels provided by
-Christoph Gohlke, set up for easy rebuilding.
+Christoph Gohlke, set up for easy rebuilding. Only `build-wheels.bat` is
+original work.
 
 Unless you want to build the wheels yourself, it will be easier to get them
 from https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses.
