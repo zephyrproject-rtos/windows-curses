@@ -43,7 +43,7 @@ Build instructions
     `--recurse-submodules` pulls in the required PDCurses Git submodule.
 
  2. Install compilers compatible with the Python versions that you want to
-    build wheels for by following the instructions at
+    builds wheel for by following the instructions at
     https://wiki.python.org/moin/WindowsCompilers.
 
  3. Install Python 3.3 or later to get
@@ -64,7 +64,7 @@ Build instructions
  6. Open the Visual Studio
     [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs)
     of the compiler required by the version of Python that you want to build
-    wheels for.
+    a wheel for.
 
     Use the 32-bit version (e.g. `VS2015 x86 Native Tools Command Prompt`) to build wheels for 32-bit
     Python versions, and the 64-bit version (e.g.
