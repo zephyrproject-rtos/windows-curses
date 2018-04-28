@@ -28,7 +28,7 @@ srcdir = 'py%i%i//' % sys.version_info[:2]
 
 setup(
     name='windows_curses',
-    version='2.2',
+    version='1.0',
     url='http://bugs.python.org/issue2889',
     license='PSF2',
     ext_modules=[
