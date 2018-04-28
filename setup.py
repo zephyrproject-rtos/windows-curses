@@ -26,6 +26,9 @@ define_macros = [
 
 srcdir = 'py%i%i//' % sys.version_info[:2]
 
+include_dirs = ["PDCurses"]
+library_dirs = ["PDCurses/wincon"]
+
 setup(
     name='windows_curses',
     version='1.0',
@@ -35,10 +38,14 @@ setup(
         Extension('_curses',
                   sources=[srcdir + '_cursesmodule.c'],
                   define_macros=define_macros,
+                  include_dirs=include_dirs,
+                  library_dirs=library_dirs,
                   libraries=libraries),
         Extension('_curses_panel',
                   sources=[srcdir + '_curses_panel.c'],
                   define_macros=define_macros,
+                  include_dirs=include_dirs,
+                  library_dirs=library_dirs,
                   libraries=libraries)
     ],
     classifiers = [
