@@ -43,7 +43,11 @@ if -%1-==-- goto end
 echo Building wheel for Python %1
 
 py -%1 setup.py bdist_wheel build_ext --include-dirs=PDCurses --library-dirs=PDCurses\wincon
-if %errorlevel% neq 0 exit /b %errorlevel%
+if %errorlevel% neq 0 (
+    echo Check that you have the 'wheel' module installed for Python %1 and are
+    echo building with the right compiler
+    exit /b %errorlevel%
+)
 
 shift
 goto nextarg
