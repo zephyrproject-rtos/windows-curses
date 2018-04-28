@@ -42,7 +42,7 @@ if -%1-==-- goto end
 
 echo Building wheel for Python %1
 
-py -%1 setup.py bdist_wheel build_ext
+py -%1 setup.py clean --all bdist_wheel build_ext
 if %errorlevel% neq 0 (
     echo Check that you have the 'wheel' module installed for Python %1 and are
     echo building with the right compiler
