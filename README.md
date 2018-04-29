@@ -68,6 +68,8 @@ Build instructions
     of the compiler required by the version of Python that you want to build
     a wheel for.
 
+    For Python 2.7, the Developer Prompt is called `Visual C++ 2008 32/64-bit` command prompt.
+
     Use the 32-bit version (`x86 Native Tools Command Prompt for VS 2017`) to build wheels for 32-bit
     Python versions, and the 64-bit version (e.g.
     `x64 Native Tools Command Prompt for VS 2017`) to build wheels for 64-bit Python versions.
@@ -94,29 +96,33 @@ Build instructions
     links the source code in `pyXY\` for each of the specified Python versions,
     producing wheels as output in `dist\`.
 
-Compatibility notes
--------------------
+Compatibility note
+------------------
 
-- This building scheme above should be the safest one to use. In practice, many
-  of the resulting wheels seem to be forwards- and backwards-compatible.
+This building scheme above should be the safest one to use. In practice, many
+of the resulting wheels seem to be forwards- and backwards-compatible.
 
 Troubleshooting
 ---------------
 
-Windows SDK 7.1 (which has Visual C++ 10.0, needed for Python 3.4) might refuse
-to install when Visual Studio 2017 is installed, giving an error related to a
-pre-release version of .NET Framework 4.
+ - Python 2.7 wants to install both the 32- and 64-bit versions into the same
+   directory by default. They must be installed into different directories.
+   The Python launcher will still find them via `py -2.7` and and `py -2.7-32`.
 
-I don't know if the problem also affects the full Visual Studio 2010.
+ - Windows SDK 7.1 (which has Visual C++ 10.0, needed for Python 3.4) might
+   refuse to install when Visual Studio 2017 is installed, giving an error
+   related to a pre-release version of .NET Framework 4.
 
-There is a
-[registry hack](https://stackoverflow.com/questions/31455926/windows-sdk-7-1-setup-failure)
-that seems to fix it. If you get a permission error trying to edit the registry
-key, see
-[this article](https://www.howtogeek.com/262464/how-to-gain-full-permissions-to-edit-protected-registry-keys/).
+   I don't know if the problem also affects the full Visual Studio 2010.
 
-Microsoft recommends installing earlier versions of Visual Studio before later
-ones. That might be the least-hassle solution.
+   There is a
+   [registry hack](https://stackoverflow.com/questions/31455926/windows-sdk-7-1-setup-failure)
+   that seems to fix it. If you get a permission error trying to edit the registry
+   key, see
+   [this article](https://www.howtogeek.com/262464/how-to-gain-full-permissions-to-edit-protected-registry-keys/).
 
-Also note that the x64 (64-bit) Visual C++ 10.0 compiler isn't freely
-available.
+   Microsoft recommends installing earlier versions of Visual Studio before
+   later ones. That might be the least-hassle solution.
+
+   Also note that the x64 (64-bit) Visual C++ 10.0 compiler isn't freely
+   available.
