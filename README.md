@@ -46,6 +46,8 @@ Build instructions
     builds wheel for by following the instructions at
     https://wiki.python.org/moin/WindowsCompilers.
 
+    Visual Studio 2017 will work for Python 3.5-3.7.
+
  3. Install Python 3.3 or later to get
     the [Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
 
@@ -97,3 +99,24 @@ Compatibility notes
 
 - This building scheme above should be the safest one to use. In practice, many
   of the resulting wheels seem to be forwards- and backwards-compatible.
+
+Troubleshooting
+---------------
+
+Windows SDK 7.1 (which has Visual C++ 10.0, needed for Python 3.4) might refuse
+to install when Visual Studio 2017 is installed, giving an error related to a
+pre-release version of .NET Framework 4.
+
+I don't know if the problem also affects the full Visual Studio 2010.
+
+There is a
+[registry hack](https://stackoverflow.com/questions/31455926/windows-sdk-7-1-setup-failure)
+that seems to fix it. If you get a permission error trying to edit the registry
+key, see
+[this article](https://www.howtogeek.com/262464/how-to-gain-full-permissions-to-edit-protected-registry-keys/).
+
+Microsoft recommends installing earlier versions of Visual Studio before later
+ones. That might be the least-hassle solution.
+
+Also note that the x64 (64-bit) Visual C++ 10.0 compiler isn't freely
+available.
