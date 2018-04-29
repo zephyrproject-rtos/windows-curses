@@ -46,7 +46,9 @@ Build instructions
     builds wheel for by following the instructions at
     https://wiki.python.org/moin/WindowsCompilers.
 
-    Visual Studio 2017 will work for Python 3.5-3.7.
+    Visual Studio 2017 will work for Python 3.5-3.7. For Python 3.5 support,
+    you will need to check `VC++ 2015.3 v140 toolset for desktop (x86,x64)`
+    during installation.
 
  3. Install Python 3.3 or later to get
     the [Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
