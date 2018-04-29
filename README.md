@@ -66,9 +66,9 @@ Build instructions
     of the compiler required by the version of Python that you want to build
     a wheel for.
 
-    Use the 32-bit version (e.g. `VS2015 x86 Native Tools Command Prompt`) to build wheels for 32-bit
+    Use the 32-bit version (`x86 Native Tools Command Prompt for VS 2017`) to build wheels for 32-bit
     Python versions, and the 64-bit version (e.g.
-    `VS2015 x64 Native Tools Command Prompt`) to build wheels for 64-bit Python versions.
+    `x64 Native Tools Command Prompt for VS 2017`) to build wheels for 64-bit Python versions.
 
  7. Run `build-wheels.bat`, passing it the Python version you're building a
     wheel for. For example, the following command will build a wheel for
