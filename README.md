@@ -56,6 +56,8 @@ Build instructions
     you will need to check `VC++ 2015.3 v140 toolset for desktop (x86,x64)`
     during installation.
 
+    *Note: It is a good idea to install older compilers before newer ones. See the Troubleshooting section.*
+
  3. Install Python 3.3 or later to get
     the [Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
 
