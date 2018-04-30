@@ -29,9 +29,17 @@ srcdir = 'py%i%i//' % sys.version_info[:2]
 include_dirs = ["PDCurses"]
 library_dirs = ["PDCurses/wincon"]
 
+LONG_DESCRIPTION = """
+Adds support for the standard Python curses module on Windows. Based on
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses. Uses the PDCurses
+curses implementation.
+"""[1:-1]
+
 setup(
     name='windows_curses',
     version='1.0',
+    description="Support for the standard curses module on Windows",
+    long_description=LONG_DESCRIPTION,
     url='http://bugs.python.org/issue2889',
     license='PSF2',
     ext_modules=[
