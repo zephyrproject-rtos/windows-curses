@@ -70,11 +70,11 @@ Build instructions
     of the compiler required by the version of Python that you want to build
     a wheel for.
 
-    For Python 2.7, the Developer Prompt is called `Visual C++ 2008 32/64-bit` command prompt.
-
     Use the 32-bit version (`x86 Native Tools Command Prompt for VS 2017`) to build wheels for 32-bit
     Python versions, and the 64-bit version (e.g.
     `x64 Native Tools Command Prompt for VS 2017`) to build wheels for 64-bit Python versions.
+
+    For Python 2.7, the Developer Prompt is called `Visual C++ 2008 32/64-bit` command prompt.
 
  7. Run `build-wheels.bat`, passing it the Python version you're building a
     wheel for. For example, the following command will build a wheel for
