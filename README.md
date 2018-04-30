@@ -5,8 +5,14 @@ This repository has the source code for the Python curses wheels provided by
 Christoph Gohlke, set up for easy rebuilding. Only `build-wheels.bat` is
 original work.
 
-Unless you want to build the wheels yourself, it will be easier to get them
-from https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses.
+Wheels built from this repository are made available
+[on PyPI](https://pypi.org/project/windows-curses/) and can be installed
+with this command:
+
+    pip install windows-curses
+
+You can also download wheels from
+[Gohlke's page](https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses).
 
 Background
 ----------
@@ -128,3 +134,16 @@ Troubleshooting
 
    Also note that the x64 (64-bit) Visual C++ 10.0 compiler isn't freely
    available.
+
+Uploading to PyPI
+-----------------
+
+Don't forget to bump the version number in `setup.py` before building new
+wheels. [Semantic versioning](https://semver.org/) is intended.
+
+Once the wheels are built, follow the instructions
+[here](https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi)
+to upload them to PyPI.
+
+`pip`/PyPI will look at the wheel metadata and automatically install the right
+version of the wheel.
