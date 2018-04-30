@@ -33,6 +33,18 @@ LONG_DESCRIPTION = """
 Adds support for the standard Python curses module on Windows. Based on
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses. Uses the PDCurses
 curses implementation.
+
+PDCurses is compiled with wide character support, meaning get_wch() is
+available. UTF-8 is forced as the encoding.
+
+Note that PDCurses requires an explicit curses.resize_term(0, 0) call after
+receiving KEY_RESIZE to get behavior similar to the automatic SIGWINCH handling
+in ncurses. ncurses reliably fails for resize_term(0, 0), so a compatibility
+hack is to always call resize_term(0, 0) and ignore any curses.error
+exceptions.
+
+Maybe it would be better to detect KEY_RESIZE in _cursesmodule.c and call
+resize_term(0, 0) there, for automatic compatibility...
 """[1:-1]
 
 setup(
