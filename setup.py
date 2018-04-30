@@ -48,7 +48,7 @@ resize_term(0, 0) there, for automatic compatibility...
 """[1:-1]
 
 setup(
-    name='windows_curses',
+    name='windows-curses',
     version='1.0',
     description="Support for the standard curses module on Windows",
     long_description=LONG_DESCRIPTION,
