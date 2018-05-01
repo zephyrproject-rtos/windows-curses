@@ -173,3 +173,69 @@ to upload them to PyPI.
 
 `pip`/PyPI will look at the wheel metadata and automatically install the right
 version of the wheel.
+
+Adding support for a new Python version
+---------------------------------------
+
+1. Create a new directory for the Python version, e.g. `py38\`
+
+2. Copy `Modules\_cursesmodule.c` from the CPython source code to `py38\_cursesmodule.c`.
+
+3. Apply the following patch to `py38\_cursesmodule.c`:
+
+```diff
+--- /home/ulf/cpython/Modules/_cursesmodule.c	2018-05-01 20:04:52.449631822 +0200
++++ py37/_cursesmodule.c	2018-04-30 20:39:09.764564158 +0200
+@@ -109,6 +109,10 @@
+ #define STRICT_SYSV_CURSES
+ #endif
+ 
++#if defined(_WIN32)
++#include <windows.h>
++#endif
++
+ #define CURSES_MODULE
+ #include "py_curses.h"
+ 
+@@ -2204,7 +2208,7 @@
+     PyCursesInitialisedColor;
+ 
+     if (!PyArg_ParseTuple(args, "i:color_pair", &n)) return NULL;
+-    return PyLong_FromLong((long) (n << 8));
++    return PyLong_FromLong(COLOR_PAIR (n));
+ }
+ 
+ static PyObject *
+@@ -2532,7 +2536,9 @@
+ PyCurses_setupterm(PyObject* self, PyObject *args, PyObject* keywds)
+ {
+     int fd = -1;
++#ifndef _WIN32
+     int err;
++#endif
+     char* termstr = NULL;
+ 
+     static char *kwlist[] = {"term", "fd", NULL};
+@@ -2560,7 +2566,7 @@
+             return NULL;
+         }
+     }
+-
++#ifndef _WIN32
+     if (!initialised_setupterm && setupterm(termstr,fd,&err) == ERR) {
+         const char* s = "setupterm: unknown error";
+
+@@ -2573,7 +2579,7 @@
+         PyErr_SetString(PyCursesError,s);
+         return NULL;
+     }
+-
++#endif
+     initialised_setupterm = TRUE;
+ 
+     Py_RETURN_NONE;
+```
+
+4. Copy `Modules\_curses_panel.c` and `Modules\clinic\_cursesmodule.c.h` from the CPython sources to `py38\_curses_panel.c` and `py38\clinic\_cursesmodule.c.h`, respectively.
+
+In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.4, 3.5, 3.6, and 3.7 wheels are currently built from identical `_cursesmodule.c` files.
