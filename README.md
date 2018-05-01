@@ -106,6 +106,31 @@ Build instructions
     links the source code in `pyXY\` for each of the specified Python versions,
     producing wheels as output in `dist\`.
 
+Rebuilding the wheels for Python 2.7, 3.5, 3.6, and 3.7
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In `Visual C++ 2008 32-bit Command Prompt`:
+
+    build_wheels.bat 2.7-32
+
+
+In `Visual C++ 2008 64-bit Command Prompt`:
+
+    build_wheels.bat 2.7
+
+
+In `x86 Native Tools Command Prompt for VS 2017`:
+
+    build_wheels.bat 3.5-32 3.6-32 3.7-32
+
+
+In `x64 Native Tools Command Prompt for VS 2017`:
+
+    build_wheels.bat 3.5 3.6 3.7
+
+
+This gives a set of wheels in `dist\`.
+
 Compatibility note
 ------------------
 
