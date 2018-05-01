@@ -106,8 +106,7 @@ Build instructions
     links the source code in `pyXY\` for each of the specified Python versions,
     producing wheels as output in `dist\`.
 
-Rebuilding the wheels for Python 2.7, 3.5, 3.6, and 3.7
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Rebuilding the wheels for Python 2.7, 3.5, 3.6, and 3.7
 
 In `Visual C++ 2008 32-bit Command Prompt`:
 
