@@ -26,7 +26,7 @@ define_macros = [
 
 srcdir = 'py%i%i//' % sys.version_info[:2]
 
-include_dirs = ["PDCurses"]
+include_dirs = ["PDCurses", "."]
 library_dirs = ["PDCurses/wincon"]
 
 LONG_DESCRIPTION = """
@@ -56,7 +56,14 @@ setup(
     license='PSF2',
     ext_modules=[
         Extension('_curses',
-                  sources=[srcdir + '_cursesmodule.c'],
+                  # term.h and terminfo.c was removed from PDCurses in commit
+                  # 6b569295 ("Eliminated term.h, terminfo.c; moved mvcur() to
+                  # move.c"). They provide functions that are called
+                  # unconditionally by _cursesmodule.c, so we keep a copy of
+                  # the last versions in this repo.
+                  #
+                  # See https://github.com/wmcbrine/PDCurses/issue/55.
+                  sources=[srcdir + '_cursesmodule.c', 'terminfo.c'],
                   define_macros=define_macros,
                   include_dirs=include_dirs,
                   library_dirs=library_dirs,
