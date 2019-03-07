@@ -49,7 +49,7 @@ resize_term(0, 0) there, for automatic compatibility...
 
 setup(
     name='windows-curses',
-    version='1.0',
+    version='1.1',
     description="Support for the standard curses module on Windows",
     long_description=LONG_DESCRIPTION,
     url='http://bugs.python.org/issue2889',
