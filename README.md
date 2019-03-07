@@ -36,7 +36,7 @@ Unicode support
 ---------------
 
 The wheels are built with wide character support and force the encoding to
-UTF-8. Remove `UTF8=y` from the `nmake` line in `build_wheels.bat` to use the
+UTF-8. Remove `UTF8=y` from the `nmake` line in `build-wheels.bat` to use the
 default system encoding instead.
 
 Build instructions
@@ -88,19 +88,19 @@ Build instructions
     wheel for. For example, the following command will build a wheel for
     Python 3.5:
 
-        build_wheels.bat 3.5
+        build-wheels.bat 3.5
 
     If you have both 32-bit and 64-bit versions of the same Python version
     installed and are building a 32-bit wheel, add "-32" to the version
     number, like in the following example:
 
-        build_wheels.bat 3.5-32
+        build-wheels.bat 3.5-32
 
     If you are building multiple wheels for Python versions that are all
     compatible with the same compiler, you can list all of them in the same
     command:
 
-        build_wheels.bat 3.5 3.6
+        build-wheels.bat 3.5 3.6
 
     `build-wheels.bat` first cleans and rebuilds PDCurses, and then builds and
     links the source code in `pyXY\` for each of the specified Python versions,
@@ -110,22 +110,22 @@ Build instructions
 
 In `Visual C++ 2008 32-bit Command Prompt`:
 
-    build_wheels.bat 2.7-32
+    build-wheels.bat 2.7-32
 
 
 In `Visual C++ 2008 64-bit Command Prompt`:
 
-    build_wheels.bat 2.7
+    build-wheels.bat 2.7
 
 
 In `x86 Native Tools Command Prompt for VS 2017`:
 
-    build_wheels.bat 3.5-32 3.6-32 3.7-32
+    build-wheels.bat 3.5-32 3.6-32 3.7-32
 
 
 In `x64 Native Tools Command Prompt for VS 2017`:
 
-    build_wheels.bat 3.5 3.6 3.7
+    build-wheels.bat 3.5 3.6 3.7
 
 
 This gives a set of wheels in `dist\`.
