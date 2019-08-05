@@ -187,7 +187,7 @@ Adding support for a new Python version
 
 2. Copy `Modules\_cursesmodule.c` from the CPython source code to `py39\_cursesmodule.c`
 
-3. Apply the patches from commit b1cf4e1 ("Add 3.8 curses patch") and commit 30ca08b ("Automatically call resize\_term(0, 0) for get{ch,key,\_wch}()")
+3. Apply the PDCurses compatibility patch from [this commit](https://github.com/zephyrproject-rtos/windows-curses/commit/b1cf4e10cecb9ba3e43766407c2ed2b138571f85) and the resizing hack from [this commit](https://github.com/zephyrproject-rtos/windows-curses/commit/30ca08bfbcb7a332228ddcde026181b2009ea0a7) to the new `py39\_cursesmodule.c`.
 
 4. Copy `Modules\_curses_panel.c`, `Modules\clinic\_cursesmodule.c.h`, and `Modules\clinic\_curses_panel.c.h` from the CPython sources to `py39\_curses_panel.c`, `py39\clinic\_cursesmodule.c.h` and `py39\clinic\_curses_panel.c.h`, respectively
 
