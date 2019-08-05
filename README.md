@@ -16,6 +16,9 @@ Starting with version 2.0, these wheels include a hack to make resizing work
 for Python applications that haven't been specifically adapted for PDCurses.
 See [this
 commit](https://github.com/zephyrproject-rtos/windows-curses/commit/30ca08bfbcb7a332228ddcde026181b2009ea0a7).
+The description on PyPI has a longer explanation.
+
+Note that this hack is not in Gohlke's wheels.
 
 Background
 ----------
