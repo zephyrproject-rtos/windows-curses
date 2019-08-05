@@ -14,9 +14,8 @@ Wheels built from this repository can be installed with this command:
 
 Starting with version 2.0, these wheels include a hack to make resizing work
 for Python applications that haven't been specifically adapted for PDCurses.
-See commit 30ca08b ("Automatically call resize\_term(0, 0) for
-get{ch,key,\_wch}()") and the project description on PyPI. This hack is not in
-Gohlke's wheels.
+See [this
+commit](https://github.com/zephyrproject-rtos/windows-curses/commit/30ca08bfbcb7a332228ddcde026181b2009ea0a7).
 
 Background
 ----------
