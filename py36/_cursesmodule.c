@@ -1141,6 +1141,12 @@ PyCursesWindow_GetCh(PyCursesWindowObject *self, PyObject *args)
         PyErr_SetString(PyExc_TypeError, "getch requires 0 or 2 arguments");
         return NULL;
     }
+
+    // windows-curses hack to make resizing work the same as in ncurses.  See
+    // PDCurses' documentation for resize_term().
+    if (rtn == KEY_RESIZE)
+        resize_term(0, 0);
+
     return PyLong_FromLong((long)rtn);
 }
 
@@ -1167,6 +1173,12 @@ PyCursesWindow_GetKey(PyCursesWindowObject *self, PyObject *args)
         PyErr_SetString(PyExc_TypeError, "getkey requires 0 or 2 arguments");
         return NULL;
     }
+
+    // windows-curses hack to make resizing work the same as in ncurses.  See
+    // PDCurses' documentation for resize_term().
+    if (rtn == KEY_RESIZE)
+        resize_term(0, 0);
+
     if (rtn == ERR) {
         /* getch() returns ERR in nodelay mode */
         PyErr_CheckSignals();
@@ -1222,8 +1234,14 @@ PyCursesWindow_Get_WCh(PyCursesWindowObject *self, PyObject *args)
         PyErr_SetString(PyCursesError, "no input");
         return NULL;
     }
-    if (ct == KEY_CODE_YES)
+    if (ct == KEY_CODE_YES) {
+        // windows-curses hack to make resizing work the same as in ncurses.  See
+        // PDCurses' documentation for resize_term().
+        if (rtn == KEY_RESIZE)
+            resize_term(0, 0);
+
         return PyLong_FromLong(rtn);
+    }
     else
         return PyUnicode_FromOrdinal(rtn);
 }
