@@ -1,18 +1,22 @@
 Python curses wheels for Windows
 ================================
 
-This repository has the source code for the Python curses wheels provided by
-Christoph Gohlke, set up for easy rebuilding. Only `build-wheels.bat` is
-original work.
+This is the repository for the [windows-curses wheels on
+PyPI](https://pypi.org/project/windows-curses). The wheels are based on the
+[wheels on Christoph Gohlke's
+page](https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses).
 
-Wheels built from this repository are made available
-[on PyPI](https://pypi.org/project/windows-curses/) and can be installed
-with this command:
+Only `build-wheels.bat` is original work.
+
+Wheels built from this repository can be installed with this command:
 
     pip install windows-curses
 
-You can also download wheels from
-[Gohlke's page](https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses).
+Starting with version 2.0, these wheels include a hack to make resizing work
+for Python applications that haven't been specifically adapted for PDCurses.
+See commit 30ca08b ("Automatically call resize\_term(0, 0) for
+get{ch,key,\_wch}()") and the project description on PyPI. This hack is not in
+Gohlke's wheels.
 
 Background
 ----------
@@ -52,7 +56,7 @@ Build instructions
     builds wheel for by following the instructions at
     https://wiki.python.org/moin/WindowsCompilers.
 
-    Visual Studio 2017 will work for Python 3.5-3.7. For Python 3.5 support,
+    Visual Studio 2019 will work for Python 3.5-3.8. For Python 3.5 support,
     you will need to check `VC++ 2015.3 v140 toolset for desktop (x86,x64)`
     during installation.
 
@@ -78,9 +82,9 @@ Build instructions
     of the compiler required by the version of Python that you want to build
     a wheel for.
 
-    Use the 32-bit version (`x86 Native Tools Command Prompt for VS 2017`) to build wheels for 32-bit
+    Use the 32-bit version (`x86 Native Tools Command Prompt for VS 2019`) to build wheels for 32-bit
     Python versions, and the 64-bit version (e.g.
-    `x64 Native Tools Command Prompt for VS 2017`) to build wheels for 64-bit Python versions.
+    `x64 Native Tools Command Prompt for VS 2019`) to build wheels for 64-bit Python versions.
 
     For Python 2.7, the Developer Prompt is called `Visual C++ 2008 32/64-bit` command prompt.
 
@@ -106,7 +110,7 @@ Build instructions
     links the source code in `pyXY\` for each of the specified Python versions,
     producing wheels as output in `dist\`.
 
-### Rebuilding the wheels for Python 2.7, 3.5, 3.6, and 3.7
+### Rebuilding the wheels for Python 2.7, 3.5, 3.6, 3.7, and 3.8
 
 In `Visual C++ 2008 32-bit Command Prompt`:
 
@@ -118,14 +122,14 @@ In `Visual C++ 2008 64-bit Command Prompt`:
     build-wheels.bat 2.7
 
 
-In `x86 Native Tools Command Prompt for VS 2017`:
+In `x86 Native Tools Command Prompt for VS 2019`:
 
-    build-wheels.bat 3.5-32 3.6-32 3.7-32
+    build-wheels.bat 3.5-32 3.6-32 3.7-32 3.8-32
 
 
-In `x64 Native Tools Command Prompt for VS 2017`:
+In `x64 Native Tools Command Prompt for VS 2019`:
 
-    build-wheels.bat 3.5 3.6 3.7
+    build-wheels.bat 3.5 3.6 3.7 3.8
 
 
 This gives a set of wheels in `dist\`.
@@ -141,10 +145,10 @@ Troubleshooting
 
  - Python 2.7 wants to install both the 32- and 64-bit versions into the same
    directory by default. They must be installed into different directories.
-   The Python launcher will still find them via `py -2.7` and and `py -2.7-32`.
+   The Python launcher will still find them via `py -2.7` and `py -2.7-32`.
 
  - Windows SDK 7.1 (which has Visual C++ 10.0, needed for Python 3.4) might
-   refuse to install when Visual Studio 2017 is installed, giving an error
+   refuse to install when Visual Studio 2019 is installed, giving an error
    related to a pre-release version of .NET Framework 4.
 
    I don't know if the problem also affects the full Visual Studio 2010.
@@ -177,65 +181,12 @@ version of the wheel.
 Adding support for a new Python version
 ---------------------------------------
 
-1. Create a new directory for the Python version, e.g. `py38\`
+1. Create a new directory for the Python version, e.g. `py39\`
 
-2. Copy `Modules\_cursesmodule.c` from the CPython source code to `py38\_cursesmodule.c`.
+2. Copy `Modules\_cursesmodule.c` from the CPython source code to `py39\_cursesmodule.c`
 
-3. Apply the following patch to `py38\_cursesmodule.c`:
+3. Apply the patches from commit b1cf4e1 ("Add 3.8 curses patch") and commit 30ca08b ("Automatically call resize\_term(0, 0) for get{ch,key,\_wch}()")
 
-   ```diff
-   --- /home/ulf/cpython/Modules/_cursesmodule.c	2018-05-01 20:04:52.449631822 +0200
-   +++ py37/_cursesmodule.c	2018-04-30 20:39:09.764564158 +0200
-   @@ -109,6 +109,10 @@
-    #define STRICT_SYSV_CURSES
-    #endif
-    
-   +#if defined(_WIN32)
-   +#include <windows.h>
-   +#endif
-   +
-    #define CURSES_MODULE
-    #include "py_curses.h"
-    
-   @@ -2204,7 +2208,7 @@
-        PyCursesInitialisedColor;
-    
-        if (!PyArg_ParseTuple(args, "i:color_pair", &n)) return NULL;
-   -    return PyLong_FromLong((long) (n << 8));
-   +    return PyLong_FromLong(COLOR_PAIR (n));
-    }
-    
-    static PyObject *
-   @@ -2532,7 +2536,9 @@
-    PyCurses_setupterm(PyObject* self, PyObject *args, PyObject* keywds)
-    {
-        int fd = -1;
-   +#ifndef _WIN32
-        int err;
-   +#endif
-        char* termstr = NULL;
-    
-        static char *kwlist[] = {"term", "fd", NULL};
-   @@ -2560,7 +2566,7 @@
-                return NULL;
-            }
-        }
-   -
-   +#ifndef _WIN32
-        if (!initialised_setupterm && setupterm(termstr,fd,&err) == ERR) {
-            const char* s = "setupterm: unknown error";
-   
-   @@ -2573,7 +2579,7 @@
-            PyErr_SetString(PyCursesError,s);
-            return NULL;
-        }
-   -
-   +#endif
-        initialised_setupterm = TRUE;
-    
-        Py_RETURN_NONE;
-   ```
+4. Copy `Modules\_curses_panel.c`, `Modules\clinic\_cursesmodule.c.h`, and `Modules\clinic\_curses_panel.c.h` from the CPython sources to `py39\_curses_panel.c`, `py39\clinic\_cursesmodule.c.h` and `py39\clinic\_curses_panel.c.h`, respectively
 
-4. Copy `Modules\_curses_panel.c` and `Modules\clinic\_cursesmodule.c.h` from the CPython sources to `py38\_curses_panel.c` and `py38\clinic\_cursesmodule.c.h`, respectively.
-
-In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.4, 3.5, 3.6, and 3.7 wheels are currently built from identical `_cursesmodule.c` files.
+In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.4, 3.5, 3.6, and 3.7 wheels are currently built from identical `_cursesmodule.c` files (but not the Python 3.8 wheels, though they probably could be).

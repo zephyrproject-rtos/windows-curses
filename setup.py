@@ -30,21 +30,33 @@ include_dirs = ["PDCurses", "."]
 library_dirs = ["PDCurses/wincon"]
 
 LONG_DESCRIPTION = """
-Adds support for the standard Python curses module on Windows. Based on
-https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses. Uses the PDCurses
-curses implementation.
+Adds support for the standard Python `curses` module on Windows. Based on
+[these wheels](https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses). Uses the
+PDCurses curses implementation.
 
-PDCurses is compiled with wide character support, meaning get_wch() is
+The wheels are built from [this GitHub
+repository](https://github.com/zephyrproject-rtos/windows-curses).
+
+PDCurses is compiled with wide character support, meaning `get_wch()` is
 available. UTF-8 is forced as the encoding.
 
-Note that PDCurses requires an explicit curses.resize_term(0, 0) call after
-receiving KEY_RESIZE to get behavior similar to the automatic SIGWINCH handling
-in ncurses. ncurses reliably fails for resize_term(0, 0), so a compatibility
-hack is to always call resize_term(0, 0) and ignore any curses.error
-exceptions.
+Starting from windows-curses 2.0, in the name of pragmatism, these wheels (but
+not Gohlke's) include a hack to make resizing work for applications developed
+against ncurses without Python code changes: Whenever `getch()`, `getkey()`, or
+`get_wch()` return `KEY_RESIZE`, `resize_term(0, 0)` is called automatically. This
+gives behavior similar to the automatic `SIGWINCH` handling in ncurses (see
+PDCurses' `resize_term()` documentation).
 
-Maybe it would be better to detect KEY_RESIZE in _cursesmodule.c and call
-resize_term(0, 0) there, for automatic compatibility...
+Commit 30ca08b ("Automatically call resize\_term(0, 0) for
+get{ch,key,\_wch}()") implements this hack.
+
+To add the same hack in Python code (which is harmless, and needed if you want
+resizing to work with older windows-curses versions or with Gohlke's wheels),
+call `curses.resize_term(0, 0)` after receiving `KEY_RESIZE`, and ignore any
+`curses.error` exceptions. ncurses reliably fails and does nothing for
+`resize_term(0, 0)`, so this is safe on *nix.
+
+Please tell me if the `resize_term(0, 0)` hackery causes you any trouble.
 """[1:-1]
 
 setup(
@@ -52,7 +64,8 @@ setup(
     version='1.1',
     description="Support for the standard curses module on Windows",
     long_description=LONG_DESCRIPTION,
-    url='http://bugs.python.org/issue2889',
+    long_description_content_type="text/markdown",
+    url="https://github.com/zephyrproject-rtos/windows-curses",
     license='PSF2',
     ext_modules=[
         Extension('_curses',
@@ -75,6 +88,9 @@ setup(
                   library_dirs=library_dirs,
                   libraries=libraries)
     ],
+    project_urls={
+        "GitHub repository": "https://github.com/zephyrproject-rtos/windows-curses",
+    },
     classifiers = [
         'Development Status :: 4 - Beta',
         'Environment :: Console :: Curses',
@@ -88,6 +104,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Software Development',
         'Topic :: Software Development :: Libraries :: Python Modules',
