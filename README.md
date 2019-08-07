@@ -50,7 +50,7 @@ Build instructions
 
  1. Clone the repository with the following command:
 
-        git clone --recurse-submodules https://github.com/ulfalizer/windows-curses-wheels.git
+        git clone --recurse-submodules https://github.com/zephyrproject-rtos/windows-curses.git
 
     `--recurse-submodules` pulls in the required PDCurses Git submodule.
 
