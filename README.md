@@ -71,10 +71,11 @@ Build instructions
 
     Only the Python X.Y versions that have `pyXY\` directories are supported.
 
- 5. Install the `wheel` package for all Python versions. Taking Python 3.4
-    as an example, the following command will do it:
+ 5. Install/upgrade the `wheel` and `setuptools` packages for all Python
+    versions. Taking Python 3.4 as an example, the following command will do
+    it:
 
-        py -3.4 -m pip install wheel
+        py -3.4 -m pip install --upgrade wheel setuptools
 
     `py` is the Python launcher, which makes it easy to run a particular Python
     version.
