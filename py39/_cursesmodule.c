@@ -109,6 +109,10 @@ static const char PyCursesVersion[] = "2.2";
 #define STRICT_SYSV_CURSES
 #endif
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #define CURSES_MODULE
 #include "py_curses.h"
 
@@ -176,11 +180,19 @@ static char *screen_encoding = NULL;
 
 /* Utility Functions */
 
+#ifndef _WIN32
 static inline int
 color_pair_to_attr(short color_number)
 {
     return ((int)color_number << 8);
 }
+#else
+static inline int
+color_pair_to_attr(short color_number)
+{
+    return COLOR_PAIR(color_number);
+}
+#endif
 
 static inline short
 attr_to_color_pair(int attr)
@@ -3216,7 +3228,9 @@ static PyObject *
 _curses_setupterm_impl(PyObject *module, const char *term, int fd)
 /*[clinic end generated code: output=4584e587350f2848 input=4511472766af0c12]*/
 {
+#ifndef _WIN32
     int err;
+#endif
 
     if (fd == -1) {
         PyObject* sys_stdout;
@@ -3237,6 +3251,7 @@ _curses_setupterm_impl(PyObject *module, const char *term, int fd)
         }
     }
 
+#ifndef _WIN32
     if (!initialised_setupterm && setupterm((char *)term, fd, &err) == ERR) {
         const char* s = "setupterm: unknown error";
 
@@ -3249,6 +3264,7 @@ _curses_setupterm_impl(PyObject *module, const char *term, int fd)
         PyErr_SetString(PyCursesError,s);
         return NULL;
     }
+#endif
 
     initialised_setupterm = TRUE;
 
