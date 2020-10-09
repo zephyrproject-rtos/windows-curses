@@ -58,13 +58,11 @@ Build instructions
     builds wheel for by following the instructions at
     https://wiki.python.org/moin/WindowsCompilers.
 
-    Visual Studio 2019 will work for Python 3.5-3.8. For Python 3.5 support,
-    you will need to check `VC++ 2015.3 v140 toolset for desktop (x86,x64)`
-    during installation.
+    Visual Studio 2019 will work for Python 3.6-3.9.
 
     *Note: It is a good idea to install older compilers before newer ones. See the Troubleshooting section.*
 
- 3. Install Python 3.3 or later to get
+ 3. Install Python 3.6 or later to get
     the [Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
 
  4. Install any other Python versions you want to build wheels for.
@@ -89,50 +87,37 @@ Build instructions
     Python versions, and the 64-bit version (e.g.
     `x64 Native Tools Command Prompt for VS 2019`) to build wheels for 64-bit Python versions.
 
-    For Python 2.7, the Developer Prompt is called `Visual C++ 2008 32/64-bit` command prompt.
-
  7. Run `build-wheels.bat`, passing it the Python version you're building a
     wheel for. For example, the following command will build a wheel for
-    Python 3.5:
+    Python 3.6:
 
-        build-wheels.bat 3.5
+        build-wheels.bat 3.6
 
     If you have both 32-bit and 64-bit versions of the same Python version
     installed and are building a 32-bit wheel, add "-32" to the version
     number, like in the following example:
 
-        build-wheels.bat 3.5-32
+        build-wheels.bat 3.6-32
 
     If you are building multiple wheels for Python versions that are all
     compatible with the same compiler, you can list all of them in the same
     command:
 
-        build-wheels.bat 3.5 3.6
+        build-wheels.bat 3.6 3.7
 
     `build-wheels.bat` first cleans and rebuilds PDCurses, and then builds and
     links the source code in `pyXY\` for each of the specified Python versions,
     producing wheels as output in `dist\`.
 
-### Rebuilding the wheels for Python 2.7, 3.5, 3.6, 3.7, and 3.8
-
-In `Visual C++ 2008 32-bit Command Prompt`:
-
-    build-wheels.bat 2.7-32
-
-
-In `Visual C++ 2008 64-bit Command Prompt`:
-
-    build-wheels.bat 2.7
-
+### Rebuilding the wheels for Python 3.6, 3.7, 3.8, and 3.9
 
 In `x86 Native Tools Command Prompt for VS 2019`:
 
-    build-wheels.bat 3.5-32 3.6-32 3.7-32 3.8-32
-
+    build-wheels.bat 3.6-32 3.7-32 3.8-32 3.9-32
 
 In `x64 Native Tools Command Prompt for VS 2019`:
 
-    build-wheels.bat 3.5 3.6 3.7 3.8
+    build-wheels.bat 3.6 3.7 3.8 3.9
 
 
 This gives a set of wheels in `dist\`.
@@ -142,31 +127,6 @@ Compatibility note
 
 This building scheme above should be the safest one to use. In practice, many
 of the resulting wheels seem to be forwards- and backwards-compatible.
-
-Troubleshooting
----------------
-
- - Python 2.7 wants to install both the 32- and 64-bit versions into the same
-   directory by default. They must be installed into different directories.
-   The Python launcher will still find them via `py -2.7` and `py -2.7-32`.
-
- - Windows SDK 7.1 (which has Visual C++ 10.0, needed for Python 3.4) might
-   refuse to install when Visual Studio 2019 is installed, giving an error
-   related to a pre-release version of .NET Framework 4.
-
-   I don't know if the problem also affects the full Visual Studio 2010.
-
-   There is a
-   [registry hack](https://stackoverflow.com/questions/31455926/windows-sdk-7-1-setup-failure)
-   that seems to fix it. If you get a permission error trying to edit the registry
-   key, see
-   [this article](https://www.howtogeek.com/262464/how-to-gain-full-permissions-to-edit-protected-registry-keys/).
-
-   Microsoft recommends installing earlier versions of Visual Studio before
-   later ones. That might be the least-hassle solution.
-
-   Also note that the x64 (64-bit) Visual C++ 10.0 compiler isn't freely
-   available.
 
 Uploading to PyPI
 -----------------
@@ -192,4 +152,4 @@ Adding support for a new Python version
 
 4. Copy `Modules\_curses_panel.c`, `Modules\clinic\_cursesmodule.c.h`, and `Modules\clinic\_curses_panel.c.h` from the CPython sources to `py39\_curses_panel.c`, `py39\clinic\_cursesmodule.c.h` and `py39\clinic\_curses_panel.c.h`, respectively
 
-In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.4, 3.5, 3.6, and 3.7 wheels are currently built from identical `_cursesmodule.c` files (but not the Python 3.8 wheels, though they probably could be).
+In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.6 and 3.7 wheels are currently built from identical `_cursesmodule.c` files (but not the Python 3.8 or 3.9 wheels).
