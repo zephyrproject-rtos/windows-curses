@@ -1,6 +1,9 @@
 Python curses wheels for Windows
 ================================
 
+![Latest Version](https://img.shields.io/pypi/v/windows-curses)
+![Supported Python Implementations](https://img.shields.io/pypi/implementation/windows-curses)
+
 This is the repository for the [windows-curses wheels on
 PyPI](https://pypi.org/project/windows-curses). The wheels are based on the
 [wheels on Christoph Gohlke's
