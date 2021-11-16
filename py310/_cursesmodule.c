@@ -103,8 +103,13 @@ static const char PyCursesVersion[] = "2.2";
 #define PY_SSIZE_T_CLEAN
 
 #include "Python.h"
-#include "pycore_long.h"          // _PyLong_GetZero()
-#include "pycore_structseq.h"     // PyStructSequence_InitType()
+
+/* This function declaration was moved from pycore_structseq.h file to adapt
+it for windows-curses package */
+PyAPI_FUNC(int) _PyStructSequence_InitType(
+    PyTypeObject *type,
+    PyStructSequence_Desc *desc,
+    unsigned long tp_flags);
 
 #ifdef __hpux
 #define STRICT_SYSV_CURSES
