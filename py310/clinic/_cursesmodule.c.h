@@ -509,8 +509,12 @@ _curses_window_box(PyCursesWindowObject *self, PyObject *args)
 {
     PyObject *return_value = NULL;
     int group_right_1 = 0;
-    PyObject *verch = _PyLong_GetZero();
-    PyObject *horch = _PyLong_GetZero();
+
+    /* Private function _PyLong_GetZero from pycore_long.h file was replaced
+    by public function PyLong_FromLong function to adapt it for
+    windows-curses package */
+    PyObject *verch = PyLong_FromLong(0);
+    PyObject *horch = PyLong_FromLong(0);
 
     switch (PyTuple_GET_SIZE(args)) {
         case 0:
