@@ -63,7 +63,7 @@ Build instructions
 
     Visual Studio 2019 will work for Python 3.6-3.9.
 
-    *Note: It is a good idea to install older compilers before newer ones. See the Troubleshooting section.*
+    Visual Studio 2022 will work for Python 3.10
 
  3. Install Python 3.6 or later to get
     the [Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
@@ -73,10 +73,10 @@ Build instructions
     Only the Python X.Y versions that have `pyXY\` directories are supported.
 
  5. Install/upgrade the `wheel` and `setuptools` packages for all Python
-    versions. Taking Python 3.4 as an example, the following command will do
+    versions. Taking Python 3.6 as an example, the following command will do
     it:
 
-        py -3.4 -m pip install --upgrade wheel setuptools
+        py -3.6 -m pip install --upgrade wheel setuptools
 
     `py` is the Python launcher, which makes it easy to run a particular Python
     version.
@@ -86,9 +86,9 @@ Build instructions
     of the compiler required by the version of Python that you want to build
     a wheel for.
 
-    Use the 32-bit version (`x86 Native Tools Command Prompt for VS 2019`) to build wheels for 32-bit
+    Use the 32-bit version (`x86 Native Tools Command Prompt for VS 2022`) to build wheels for 32-bit
     Python versions, and the 64-bit version (e.g.
-    `x64 Native Tools Command Prompt for VS 2019`) to build wheels for 64-bit Python versions.
+    `x64 Native Tools Command Prompt for VS 2022`) to build wheels for 64-bit Python versions.
 
  7. Run `build-wheels.bat`, passing it the Python version you're building a
     wheel for. For example, the following command will build a wheel for
@@ -112,15 +112,15 @@ Build instructions
     links the source code in `pyXY\` for each of the specified Python versions,
     producing wheels as output in `dist\`.
 
-### Rebuilding the wheels for Python 3.6, 3.7, 3.8, and 3.9
+### Rebuilding the wheels for Python 3.6, 3.7, 3.8, 3.9 and 3.10
 
-In `x86 Native Tools Command Prompt for VS 2019`:
+In `x86 Native Tools Command Prompt for VS 2022`:
 
-    build-wheels.bat 3.6-32 3.7-32 3.8-32 3.9-32
+    build-wheels.bat 3.6-32 3.7-32 3.8-32 3.9-32 3.10-32
 
-In `x64 Native Tools Command Prompt for VS 2019`:
+In `x64 Native Tools Command Prompt for VS 2022`:
 
-    build-wheels.bat 3.6 3.7 3.8 3.9
+    build-wheels.bat 3.6 3.7 3.8 3.9 3.10
 
 
 This gives a set of wheels in `dist\`.
@@ -156,3 +156,5 @@ Adding support for a new Python version
 4. Copy `Modules\_curses_panel.c`, `Modules\clinic\_cursesmodule.c.h`, and `Modules\clinic\_curses_panel.c.h` from the CPython sources to `py39\_curses_panel.c`, `py39\clinic\_cursesmodule.c.h` and `py39\clinic\_curses_panel.c.h`, respectively
 
 In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.6 and 3.7 wheels are currently built from identical `_cursesmodule.c` files (but not the Python 3.8 or 3.9 wheels).
+
+For Python 3.10 it is necessary to adapt `_cursesmodule.c` and `clinic\_cursesmodule.c.h` files to new Python API (decribed more here https://devguide.python.org/c-api). It demands removing two headers files as described in [this commit]().
