@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+    - v*-branch
+  pull_request:
+    branches:
+    - main
+    - v*-branch
+  workflow_call:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (Python ${{ matrix.target.python }}, ${{ matrix.arch }})
+    runs-on: ${{ matrix.target.builder }}
+
+    defaults:
+      run:
+        shell: bash
+
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+        # Python 3.6
+        - python: '3.6'
+          builder: windows-2019
+          toolset: '14.25' # Visual Studio 2019
+          winsdk: '10.0.14393.0' # Windows 10 1607
+        # Python 3.7
+        - python: '3.7'
+          builder: windows-2019
+          toolset: '14.25' # Visual Studio 2019
+          winsdk: '10.0.14393.0' # Windows 10 1607
+        # Python 3.8
+        - python: '3.8'
+          builder: windows-2019
+          toolset: '14.25' # Visual Studio 2019
+          winsdk: '10.0.14393.0' # Windows 10 1607
+        # Python 3.9
+        - python: '3.9'
+          builder: windows-2019
+          toolset: '14.25' # Visual Studio 2019
+          winsdk: '10.0.14393.0' # Windows 10 1607
+        # Python 3.10
+        - python: '3.10'
+          builder: windows-2022
+          toolset: '14.33' # Visual Studio 2022
+          winsdk: '10.0.17763.0' # Windows 10 1809
+        arch:
+        - x86
+        - x64
+
+    steps:
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.target.python }}
+        architecture: ${{ matrix.arch }}
+
+    - name: Check Python version
+      run: |
+        set -x
+        python --version
+        pip --version
+        python -c "import platform; print(platform.architecture())"
+
+    - name: Install Python dependencies
+      run: |
+        pip install --user setuptools wheel
+
+    - name: Set up Visual Studio Build Tools
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ matrix.arch }}
+        sdk: ${{ matrix.target.winsdk }}
+        toolset: ${{ matrix.target.toolset }}
+
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Build wheel
+      id: build-wheel
+      run: |
+        ./build-wheels.bat ${{ matrix.target.python }}${{ matrix.arch == 'x86' && '-32' || '' }}
+        ls -l dist
+        files=(dist/*.whl)
+        filename=$(basename ${files[0]})
+        echo "filename=${filename}" >> $GITHUB_OUTPUT
+
+    - name: Test wheel
+      run: |
+        pip install --user dist/${{ steps.build-wheel.outputs.filename }}
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ steps.build-wheel.outputs.filename }}
+        path: dist/${{ steps.build-wheel.outputs.filename }}
