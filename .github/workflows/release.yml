@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: write
+
+jobs:
+  ci:
+    name: CI
+    uses: ./.github/workflows/ci.yml
+
+  release:
+    name: Release
+    needs: [ ci ]
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: artifacts
+
+    - name: Prepare release assets
+      run: |
+        mkdir -p assets
+        cp artifacts/*/*.whl assets
+
+    - name: Upload release assets
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          assets/*.whl
