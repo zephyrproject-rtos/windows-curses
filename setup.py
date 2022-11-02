@@ -60,7 +60,7 @@ Please tell me if the `resize_term(0, 0)` hackery causes you any trouble.
 
 setup(
     name='windows-curses',
-    version='2.3.0',
+    version='2.3.1a2',
     description="Support for the standard curses module on Windows",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
