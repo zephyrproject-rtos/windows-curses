@@ -23,6 +23,14 @@ The description on PyPI has a longer explanation.
 
 Note that this hack is not in Gohlke's wheels.
 
+Maintainers Wanted
+------------------
+
+This project is not actively maintained and is looking for maintainers.
+
+If you are interested, please let us know by either creating an issue here or messaging in the
+[#windows-support channel on Zephyr Discord](https://discord.gg/ygfnbCZCtU).
+
 Background
 ----------
 
