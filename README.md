@@ -131,8 +131,32 @@ Compatibility note
 This building scheme above should be the safest one to use. In practice, many
 of the resulting wheels seem to be forwards- and backwards-compatible.
 
+Making a new release
+--------------------
+
+  1. Bump the version number in `setup.py` according to the [Semantic versioning](https://semver.org/).
+
+  2. Create a Git tag for the release:
+
+         git tag -s -m "windows-curses 1.2.3" v1.2.3
+         git push upstream v1.2.3
+
+     For pre-releases, add `aNUMBER` after the release name (e.g. `v1.2.3a1`, `v1.2.3a2`, ...).
+
+  3. [Create a GitHub release](https://github.com/zephyrproject-rtos/windows-curses/releases/new)
+     from the tag.
+
+     The name of the GitHub release should match the name of the release tag (e.g. `v1.2.3`) and its
+     body should contain a brief release note.
+
+Once a GitHub release is created, the GitHub Actions CI will automatically build and upload the
+wheels to the PyPI.
+
 Uploading to PyPI
 -----------------
+
+**NOTE: The process of uploading wheels for releases is automated using the GitHub Actions and
+manual uploads should not be necessary under normal circumstances.**
 
 Don't forget to bump the version number in `setup.py` before building new
 wheels. [Semantic versioning](https://semver.org/) is intended.
