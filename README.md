@@ -179,6 +179,8 @@ Adding support for a new Python version
 
 4. Copy `Modules\_curses_panel.c`, `Modules\clinic\_cursesmodule.c.h`, and `Modules\clinic\_curses_panel.c.h` from the CPython sources to `py39\_curses_panel.c`, `py39\clinic\_cursesmodule.c.h` and `py39\clinic\_curses_panel.c.h`, respectively
 
+5. Add the build specifications for the new Python version in `.github/workflows/ci.yml`.
+
 In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.6 and 3.7 wheels are currently built from identical `_cursesmodule.c` files (but not the Python 3.8 or 3.9 wheels).
 
 For Python 3.10 and 3.11 it is necessary to adapt `_cursesmodule.c` and `clinic\_cursesmodule.c.h` files to new Python API (decribed more here https://devguide.python.org/c-api). It demands removing two headers files as described in [this commit]().
