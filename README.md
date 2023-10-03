@@ -71,7 +71,7 @@ Build instructions
 
     Visual Studio 2019 will work for Python 3.6-3.9.
 
-    Visual Studio 2022 will work for Python 3.10-3.11.
+    Visual Studio 2022 will work for Python 3.10-3.12.
 
  3. Install Python 3.6 or later to get
     the [Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
@@ -120,15 +120,15 @@ Build instructions
     links the source code in `pyXY\` for each of the specified Python versions,
     producing wheels as output in `dist\`.
 
-### Rebuilding the wheels for Python 3.6, 3.7, 3.8, 3.9, 3.10, and 3.11
+### Rebuilding the wheels for Python 3.6, 3.7, 3.8, 3.9, 3.10, 3.11 and 3.12
 
 In `x86 Native Tools Command Prompt for VS 2022`:
 
-    build-wheels.bat 3.6-32 3.7-32 3.8-32 3.9-32 3.10-32 3.11-32
+    build-wheels.bat 3.6-32 3.7-32 3.8-32 3.9-32 3.10-32 3.11-32 3.12-32
 
 In `x64 Native Tools Command Prompt for VS 2022`:
 
-    build-wheels.bat 3.6 3.7 3.8 3.9 3.10 3.11
+    build-wheels.bat 3.6 3.7 3.8 3.9 3.10 3.11 3.12
 
 
 This gives a set of wheels in `dist\`.
@@ -191,4 +191,4 @@ Adding support for a new Python version
 
 In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.6 and 3.7 wheels are currently built from identical `_cursesmodule.c` files (but not the Python 3.8 or 3.9 wheels).
 
-For Python 3.10 and 3.11 it is necessary to adapt `_cursesmodule.c` and `clinic\_cursesmodule.c.h` files to new Python API (decribed more here https://devguide.python.org/c-api). It demands removing two headers files as described in [this commit]().
+For Python 3.10-3.12 it is necessary to adapt `_cursesmodule.c` and `clinic\_cursesmodule.c.h` files to new Python API (decribed more here https://devguide.python.org/c-api). It demands removing two headers files as described in [this commit]().
