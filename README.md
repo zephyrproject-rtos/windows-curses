@@ -179,16 +179,26 @@ version of the wheel.
 Adding support for a new Python version
 ---------------------------------------
 
-1. Create a new directory for the Python version, e.g. `py39\`
+1. Create a new directory `pyXY` for the Python version X.Y (e.g. `py39` for
+   Python 3.9).
 
-2. Copy `Modules\_cursesmodule.c` from the CPython source code to `py39\_cursesmodule.c`
+2. Copy `Modules/_cursesmodule.c` and `Modules/_curses_panel.c` from the
+   CPython source code to `pyXY/_cursesmodule.c` and `pyXY/_curses_panel.c`,
+   respectively.
 
-3. Apply the PDCurses compatibility patch from [this commit](https://github.com/zephyrproject-rtos/windows-curses/commit/b1cf4e10cecb9ba3e43766407c2ed2b138571f85) and the resizing hack from [this commit](https://github.com/zephyrproject-rtos/windows-curses/commit/30ca08bfbcb7a332228ddcde026181b2009ea0a7) to the new `py39\_cursesmodule.c`.
+3. Apply the PDCurses compatibility patch from
+   [this commit](https://github.com/zephyrproject-rtos/windows-curses/commit/b1cf4e10cecb9ba3e43766407c2ed2b138571f85)
+   and the resizing hack from
+   [this commit](https://github.com/zephyrproject-rtos/windows-curses/commit/30ca08bfbcb7a332228ddcde026181b2009ea0a7).
 
-4. Copy `Modules\_curses_panel.c`, `Modules\clinic\_cursesmodule.c.h`, and `Modules\clinic\_curses_panel.c.h` from the CPython sources to `py39\_curses_panel.c`, `py39\clinic\_cursesmodule.c.h` and `py39\clinic\_curses_panel.c.h`, respectively
+4. Run `Tools/clinic/clinic.py` script from the CPython source code on
+   `pyXY/_cursesmodule.c` and `pyXY/_curses_panel.c` in order to generate the
+   respective header files under `pyXY/clinic/`.
 
-5. Add the build specifications for the new Python version in `.github/workflows/ci.yml`.
+5. Add the build specifications for the new Python version in
+   `.github/workflows/ci.yml`.
 
-In practise, `Modules\_cursesmodule.c` from newer Python 3 versions is likely to be compatible with older Python 3 versions too. The Python 3.6 and 3.7 wheels are currently built from identical `_cursesmodule.c` files (but not the Python 3.8 or 3.9 wheels).
-
-For Python 3.10-3.12 it is necessary to adapt `_cursesmodule.c` and `clinic\_cursesmodule.c.h` files to new Python API (decribed more here https://devguide.python.org/c-api). It demands removing two headers files as described in [this commit]().
+In practice, `Modules\_cursesmodule.c` from newer Python 3 versions is likely
+to be compatible with older Python 3 versions too. The Python 3.6 and 3.7
+wheels are currently built from identical `_cursesmodule.c` files (but not the
+Python 3.8 or 3.9 wheels).
