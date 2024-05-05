@@ -1119,9 +1119,9 @@ _curses_window_border_impl(PyCursesWindowObject *self, PyObject *ls,
 _curses.window.box
 
     [
-    verch: object(c_default="_PyLong_GetZero()") = 0
+    verch: object(c_default="PyLong_FromLong(0)") = 0
         Left and right side.
-    horch: object(c_default="_PyLong_GetZero()") = 0
+    horch: object(c_default="PyLong_FromLong(0)") = 0
         Top and bottom side.
     ]
     /
@@ -1135,7 +1135,7 @@ horch.  The default corner characters are always used by this function.
 static PyObject *
 _curses_window_box_impl(PyCursesWindowObject *self, int group_right_1,
                         PyObject *verch, PyObject *horch)
-/*[clinic end generated code: output=f3fcb038bb287192 input=f00435f9c8c98f60]*/
+/*[clinic end generated code: output=f3fcb038bb287192 input=07797b056d82f6ab]*/
 {
     chtype ch1 = 0, ch2 = 0;
     if (group_right_1) {
