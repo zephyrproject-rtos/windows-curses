@@ -21,7 +21,7 @@ define_macros = [
     ('WINDOW_HAS_FLAGS', None),
     ('NCURSES_MOUSE_VERSION', 2),
     ('_ISPAD', 0x10),
-    ('is_term_resized', 'is_termresized'),
+    ('\'is_term_resized(nlines, ncols)=is_termresized()\'', None),
 ]
 
 srcdir = 'py%i%i//' % sys.version_info[:2]
