@@ -186,10 +186,11 @@ Adding support for a new Python version
    CPython source code to `pyXY/_cursesmodule.c` and `pyXY/_curses_panel.c`,
    respectively.
 
-3. Apply the PDCurses compatibility patch from
-   [this commit](https://github.com/zephyrproject-rtos/windows-curses/commit/b1cf4e10cecb9ba3e43766407c2ed2b138571f85)
-   and the resizing hack from
-   [this commit](https://github.com/zephyrproject-rtos/windows-curses/commit/30ca08bfbcb7a332228ddcde026181b2009ea0a7).
+3. Apply the following PDCurses compatibility patches:
+
+   * https://github.com/zephyrproject-rtos/windows-curses/commit/b1cf4e10cecb9ba3e43766407c2ed2b138571f85
+   * https://github.com/zephyrproject-rtos/windows-curses/commit/30ca08bfbcb7a332228ddcde026181b2009ea0a7
+   * https://github.com/zephyrproject-rtos/windows-curses/commit/3e4fa8c6427483641300efb21a3e9af78b146c83
 
 4. Run `Tools/clinic/clinic.py` script from the CPython source code on
    `pyXY/_cursesmodule.c` and `pyXY/_curses_panel.c` in order to generate the
