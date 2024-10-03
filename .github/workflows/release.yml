@@ -4,9 +4,6 @@ on:
   release:
     types: [ published ]
 
-permissions:
-  contents: write
-
 jobs:
   ci:
     name: CI
@@ -14,8 +11,13 @@ jobs:
 
   release:
     name: Release
+    environment: release
     needs: [ ci ]
     runs-on: ubuntu-20.04
+
+    permissions:
+      contents: write
+      id-token: write
 
     steps:
     - name: Download build artifacts
@@ -37,5 +39,4 @@ jobs:
     - name: Publish package to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
         packages-dir: assets/
