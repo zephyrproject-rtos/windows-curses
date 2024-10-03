@@ -2634,7 +2634,7 @@ PyCurses_Is_Term_Resized(PyObject *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args,"ii:is_term_resized", &lines, &columns))
         return NULL;
-    result = is_term_resized(lines, columns);
+    result = is_term_resized();
     if (result == TRUE) {
         Py_RETURN_TRUE;
     } else {
