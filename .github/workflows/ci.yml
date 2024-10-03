@@ -51,17 +51,17 @@ jobs:
         # Python 3.10
         - python: '3.10'
           builder: windows-2022
-          toolset: '14.39' # Visual Studio 2022
+          toolset: '14.41' # Visual Studio 2022
           winsdk: '10.0.17763.0' # Windows 10 1809
         # Python 3.11
         - python: '3.11'
           builder: windows-2022
-          toolset: '14.39' # Visual Studio 2022
+          toolset: '14.41' # Visual Studio 2022
           winsdk: '10.0.17763.0' # Windows 10 1809
         # Python 3.12
         - python: '3.12'
           builder: windows-2022
-          toolset: '14.39' # Visual Studio 2022
+          toolset: '14.41' # Visual Studio 2022
           winsdk: '10.0.17763.0' # Windows 10 1809
         arch:
         - x86
