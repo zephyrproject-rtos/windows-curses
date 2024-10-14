@@ -71,7 +71,7 @@ Build instructions
 
     Visual Studio 2019 will work for Python 3.6-3.9.
 
-    Visual Studio 2022 will work for Python 3.10-3.12.
+    Visual Studio 2022 will work for Python 3.10-3.13.
 
  3. Install Python 3.6 or later to get
     the [Python launcher for Windows](https://docs.python.org/3/using/windows.html#launcher).
@@ -120,15 +120,15 @@ Build instructions
     links the source code in `pyXY\` for each of the specified Python versions,
     producing wheels as output in `dist\`.
 
-### Rebuilding the wheels for Python 3.6, 3.7, 3.8, 3.9, 3.10, 3.11 and 3.12
+### Rebuilding the wheels for Python 3.6, 3.7, 3.8, 3.9, 3.10, 3.11, 3.12, and 3.13
 
 In `x86 Native Tools Command Prompt for VS 2022`:
 
-    build-wheels.bat 3.6-32 3.7-32 3.8-32 3.9-32 3.10-32 3.11-32 3.12-32
+    build-wheels.bat 3.6-32 3.7-32 3.8-32 3.9-32 3.10-32 3.11-32 3.12-32 3.13-32
 
 In `x64 Native Tools Command Prompt for VS 2022`:
 
-    build-wheels.bat 3.6 3.7 3.8 3.9 3.10 3.11 3.12
+    build-wheels.bat 3.6 3.7 3.8 3.9 3.10 3.11 3.12 3.13
 
 
 This gives a set of wheels in `dist\`.
