@@ -105,8 +105,13 @@ static const char PyCursesVersion[] = "2.2";
 #endif
 
 #include "Python.h"
-#include "pycore_long.h"          // _PyLong_GetZero()
-#include "pycore_structseq.h"     // _PyStructSequence_NewType()
+
+/* This function declaration was moved from pycore_structseq.h file to adapt
+it for windows-curses package */
+PyAPI_FUNC(int) _PyStructSequence_InitType(
+    PyTypeObject *type,
+    PyStructSequence_Desc *desc,
+    unsigned long tp_flags);
 
 #ifdef __hpux
 #define STRICT_SYSV_CURSES
@@ -1116,9 +1121,9 @@ _curses_window_border_impl(PyCursesWindowObject *self, PyObject *ls,
 _curses.window.box
 
     [
-    verch: object(c_default="_PyLong_GetZero()") = 0
+    verch: object(c_default="PyLong_FromLong(0)") = 0
         Left and right side.
-    horch: object(c_default="_PyLong_GetZero()") = 0
+    horch: object(c_default="PyLong_FromLong(0)") = 0
         Top and bottom side.
     ]
     /
@@ -1132,7 +1137,7 @@ horch.  The default corner characters are always used by this function.
 static PyObject *
 _curses_window_box_impl(PyCursesWindowObject *self, int group_right_1,
                         PyObject *verch, PyObject *horch)
-/*[clinic end generated code: output=f3fcb038bb287192 input=f00435f9c8c98f60]*/
+/*[clinic end generated code: output=f3fcb038bb287192 input=07797b056d82f6ab]*/
 {
     chtype ch1 = 0, ch2 = 0;
     if (group_right_1) {
@@ -1415,6 +1420,12 @@ _curses_window_getch_impl(PyCursesWindowObject *self, int group_right_1,
     else {
         rtn = mvwgetch(self->win, y, x);
     }
+
+    // windows-curses hack to make resizing work the same as in ncurses.  See
+    // PDCurses' documentation for resize_term().
+    if (rtn == KEY_RESIZE)
+        resize_term(0, 0);
+
     Py_END_ALLOW_THREADS
 
     return rtn;
@@ -1452,6 +1463,12 @@ _curses_window_getkey_impl(PyCursesWindowObject *self, int group_right_1,
     else {
         rtn = mvwgetch(self->win, y, x);
     }
+
+    // windows-curses hack to make resizing work the same as in ncurses.  See
+    // PDCurses' documentation for resize_term().
+    if (rtn == KEY_RESIZE)
+        resize_term(0, 0);
+
     Py_END_ALLOW_THREADS
 
     if (rtn == ERR) {
@@ -1519,13 +1536,13 @@ _curses_window_get_wch_impl(PyCursesWindowObject *self, int group_right_1,
         PyErr_SetString(PyCursesError, "no input");
         return NULL;
     }
-    if (ct == KEY_CODE_YES){
+    if (ct == KEY_CODE_YES) {
         // windows-curses hack to make resizing work the same as in ncurses.  See
         // PDCurses' documentation for resize_term().
         if (rtn == KEY_RESIZE)
             resize_term(0, 0);
 
-	return PyLong_FromLong(rtn);
+        return PyLong_FromLong(rtn);
     }
     else
         return PyUnicode_FromOrdinal(rtn);

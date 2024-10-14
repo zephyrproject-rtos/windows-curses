@@ -515,8 +515,8 @@ _curses_window_box(PyCursesWindowObject *self, PyObject *args)
 {
     PyObject *return_value = NULL;
     int group_right_1 = 0;
-    PyObject *verch = _PyLong_GetZero();
-    PyObject *horch = _PyLong_GetZero();
+    PyObject *verch = PyLong_FromLong(0);
+    PyObject *horch = PyLong_FromLong(0);
 
     switch (PyTuple_GET_SIZE(args)) {
         case 0:
@@ -4318,4 +4318,4 @@ _curses_has_extended_color_support(PyObject *module, PyObject *Py_UNUSED(ignored
 #ifndef _CURSES_USE_DEFAULT_COLORS_METHODDEF
     #define _CURSES_USE_DEFAULT_COLORS_METHODDEF
 #endif /* !defined(_CURSES_USE_DEFAULT_COLORS_METHODDEF) */
-/*[clinic end generated code: output=96887782374f070a input=a9049054013a1b77]*/
+/*[clinic end generated code: output=210f8665ff6c6d3b input=a9049054013a1b77]*/
