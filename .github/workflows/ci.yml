@@ -63,6 +63,11 @@ jobs:
           builder: windows-2022
           toolset: '14.41' # Visual Studio 2022
           winsdk: '10.0.17763.0' # Windows 10 1809
+        # Python 3.13 
+        - python: '3.13'
+          builder: windows-2022
+          toolset: '14.41' # Visual Studio 2022
+          winsdk: '10.0.17763.0' # Windows 10 1809
         arch:
         - x86
         - x64
