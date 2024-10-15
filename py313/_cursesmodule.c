@@ -100,10 +100,6 @@ static const char PyCursesVersion[] = "2.2";
 
 /* Includes */
 
-#ifndef Py_BUILD_CORE_BUILTIN
-#  define Py_BUILD_CORE_MODULE 1
-#endif
-
 #include "Python.h"
 
 /* This function declaration was moved from pycore_structseq.h file to adapt
