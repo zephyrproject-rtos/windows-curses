@@ -6,6 +6,8 @@ libraries = ['pdcurses', 'user32', 'advapi32', 'gdi32', 'comdlg32', 'shell32']
 
 define_macros = [
     ('PDC_WIDE', None),
+    ('HAVE_CURSES_H', None),
+    ('HAVE_PANEL_H', None),
     ('HAVE_NCURSESW', None),
     ('HAVE_TERM_H', None),
     ('HAVE_CURSES_IS_TERM_RESIZED', None),
