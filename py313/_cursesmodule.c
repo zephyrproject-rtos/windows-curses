@@ -109,6 +109,8 @@ PyAPI_FUNC(int) _PyStructSequence_InitType(
     PyStructSequence_Desc *desc,
     unsigned long tp_flags);
 
+PyAPI_FUNC(char*) _PyMem_Strdup(const char *str);
+
 #ifdef __hpux
 #define STRICT_SYSV_CURSES
 #endif
