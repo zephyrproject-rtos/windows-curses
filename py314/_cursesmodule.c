@@ -106,7 +106,6 @@ static const char PyCursesVersion[] = "2.2";
 
 #include "Python.h"
 #include "pycore_capsule.h"     // _PyCapsule_SetTraverse()
-#include "pycore_long.h"        // _PyLong_GetZero()
 #include "pycore_structseq.h"   // _PyStructSequence_NewType()
 #include "pycore_sysmodule.h"   // _PySys_GetOptionalAttrString()
 #include "pycore_fileutils.h"   // _Py_set_inheritable
@@ -1263,9 +1262,9 @@ _curses_window_border_impl(PyCursesWindowObject *self, PyObject *ls,
 _curses.window.box
 
     [
-    verch: object(c_default="_PyLong_GetZero()") = 0
+    verch: object(c_default="PyLong_FromLong(0)") = 0
         Left and right side.
-    horch: object(c_default="_PyLong_GetZero()") = 0
+    horch: object(c_default="PyLong_FromLong(0)") = 0
         Top and bottom side.
     ]
     /
