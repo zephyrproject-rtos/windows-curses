@@ -3753,7 +3753,7 @@ _curses_is_term_resized_impl(PyObject *module, int nlines, int ncols)
 {
     PyCursesStatefulInitialised(module);
 
-    return PyBool_FromLong(is_term_resized(nlines, ncols));
+    return PyBool_FromLong(is_term_resized());
 }
 #endif /* HAVE_CURSES_IS_TERM_RESIZED */
 
