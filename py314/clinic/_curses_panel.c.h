@@ -5,7 +5,30 @@ preserve
 #if defined(Py_BUILD_CORE) && !defined(Py_BUILD_CORE_MODULE)
 #  include "pycore_runtime.h"     // _Py_SINGLETON()
 #endif
-#include "pycore_modsupport.h"    // _PyArg_UnpackKeywords()
+
+// Export for 'math' shared extension
+PyAPI_FUNC(PyObject * const *) _PyArg_UnpackKeywords(
+    PyObject *const *args,
+    Py_ssize_t nargs,
+    PyObject *kwargs,
+    PyObject *kwnames,
+    struct _PyArg_Parser *parser,
+    int minpos,
+    int maxpos,
+    int minkw,
+    PyObject **buf);
+#define _PyArg_UnpackKeywords(args, nargs, kwargs, kwnames, parser, minpos, maxpos, minkw, buf) \
+    (((minkw) == 0 && (kwargs) == NULL && (kwnames) == NULL && \
+      (minpos) <= (nargs) && (nargs) <= (maxpos) && (args) != NULL) ? (args) : \
+     _PyArg_UnpackKeywords((args), (nargs), (kwargs), (kwnames), (parser), \
+                           (minpos), (maxpos), (minkw), (buf)))
+
+// Export for '_heapq' shared extension
+PyAPI_FUNC(void) _PyArg_BadArgument(
+    const char *fname,
+    const char *displayname,
+    const char *expected,
+    PyObject *arg);
 
 PyDoc_STRVAR(_curses_panel_panel_bottom__doc__,
 "bottom($self, /)\n"

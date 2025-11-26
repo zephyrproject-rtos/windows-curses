@@ -100,15 +100,20 @@ static const char PyCursesVersion[] = "2.2";
 
 /* Includes */
 
-#ifndef Py_BUILD_CORE_BUILTIN
-#  define Py_BUILD_CORE_MODULE 1
-#endif
-
 #include "Python.h"
-#include "pycore_capsule.h"     // _PyCapsule_SetTraverse()
-#include "pycore_structseq.h"   // _PyStructSequence_NewType()
-#include "pycore_sysmodule.h"   // _PySys_GetOptionalAttrString()
-#include "pycore_fileutils.h"   // _Py_set_inheritable
+
+
+/* This function declaration was moved from pycore_structseq.h file to adapt
+it for windows-curses package */
+PyAPI_FUNC(PyTypeObject*) _PyStructSequence_NewType(
+    PyStructSequence_Desc *desc,
+    unsigned long tp_flags);
+	
+PyAPI_FUNC(char*) _PyMem_Strdup(const char *str);
+PyAPI_FUNC(int) _PyCapsule_SetTraverse(PyObject *op, traverseproc traverse_func, inquiry clear_func);
+PyAPI_FUNC(int) _PySys_GetOptionalAttrString(const char *, PyObject **);
+PyAPI_FUNC(int) _Py_set_inheritable(int fd, int inheritable,
+                                    int *atomic_flag_works);
 
 #ifdef __hpux
 #define STRICT_SYSV_CURSES
