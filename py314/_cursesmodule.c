@@ -114,6 +114,7 @@ PyAPI_FUNC(int) _PyCapsule_SetTraverse(PyObject *op, traverseproc traverse_func,
 PyAPI_FUNC(int) _PySys_GetOptionalAttrString(const char *, PyObject **);
 PyAPI_FUNC(int) _Py_set_inheritable(int fd, int inheritable,
                                     int *atomic_flag_works);
+PyAPI_FUNC(int) _PyLong_UnsignedInt_Converter(PyObject *, void *);
 
 #ifdef __hpux
 #define STRICT_SYSV_CURSES
