@@ -1563,6 +1563,12 @@ _curses_window_getch_impl(PyCursesWindowObject *self, int group_right_1,
     else {
         rtn = mvwgetch(self->win, y, x);
     }
+
+    // windows-curses hack to make resizing work the same as in ncurses.  See
+    // PDCurses' documentation for resize_term().
+    if (rtn == KEY_RESIZE)
+        resize_term(0, 0);
+
     Py_END_ALLOW_THREADS
 
     if (rtn == ERR) {
@@ -1610,6 +1616,12 @@ _curses_window_getkey_impl(PyCursesWindowObject *self, int group_right_1,
     else {
         rtn = mvwgetch(self->win, y, x);
     }
+
+    // windows-curses hack to make resizing work the same as in ncurses.  See
+    // PDCurses' documentation for resize_term().
+    if (rtn == KEY_RESIZE)
+        resize_term(0, 0);
+
     Py_END_ALLOW_THREADS
 
     if (rtn == ERR) {
