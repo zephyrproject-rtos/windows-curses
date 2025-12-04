@@ -4120,7 +4120,7 @@ _curses_resizeterm_impl(PyObject *module, short nlines, short ncols)
 
     PyCursesInitialised;
 
-    result = PyCursesCheckERR(resizeterm(nlines, ncols), "resizeterm");
+    result = PyCursesCheckERR(resize_term(nlines, ncols), "resizeterm");
     if (!result)
         return NULL;
     if (!update_lines_cols()) {

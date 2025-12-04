@@ -4334,7 +4334,7 @@ _curses_resizeterm_impl(PyObject *module, short nlines, short ncols)
 
     PyCursesStatefulInitialised(module);
 
-    result = PyCursesCheckERR(module, resizeterm(nlines, ncols), "resizeterm");
+    result = PyCursesCheckERR(module, resize_term(nlines, ncols), "resizeterm");
     if (!result)
         return NULL;
     if (!update_lines_cols(module)) {

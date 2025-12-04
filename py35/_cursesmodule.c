@@ -2932,7 +2932,7 @@ PyCurses_ResizeTerm(PyObject *self, PyObject *args)
     if (!PyArg_ParseTuple(args,"ii:resizeterm", &lines, &columns))
         return NULL;
 
-    result = PyCursesCheckERR(resizeterm(lines, columns), "resizeterm");
+    result = PyCursesCheckERR(resize_term(lines, columns), "resizeterm");
     if (!result)
         return NULL;
     if (!update_lines_cols())

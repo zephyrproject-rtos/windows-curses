@@ -12,6 +12,7 @@ define_macros = [
     ('HAVE_TERM_H', None),
     ('HAVE_CURSES_IS_TERM_RESIZED', None),
     ('HAVE_CURSES_RESIZE_TERM', None),
+    ('HAVE_CURSES_RESIZETERM', None),
     ('HAVE_CURSES_TYPEAHEAD', None),
     ('HAVE_CURSES_HAS_KEY', None),
     ('HAVE_CURSES_FILTER', None),
