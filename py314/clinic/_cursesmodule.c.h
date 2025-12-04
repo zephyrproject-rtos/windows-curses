@@ -38,12 +38,15 @@ PyAPI_FUNC(PyObject * const *) _PyArg_UnpackKeywords(
     int minpos,
     int maxpos,
     int minkw,
+    int varpos,
     PyObject **buf);
-#define _PyArg_UnpackKeywords(args, nargs, kwargs, kwnames, parser, minpos, maxpos, minkw, buf) \
+#define _PyArg_UnpackKeywords(args, nargs, kwargs, kwnames, parser, minpos, maxpos, minkw, varpos, buf) \
     (((minkw) == 0 && (kwargs) == NULL && (kwnames) == NULL && \
-      (minpos) <= (nargs) && (nargs) <= (maxpos) && (args) != NULL) ? (args) : \
+      (minpos) <= (nargs) && ((varpos) || (nargs) <= (maxpos)) && (args) != NULL) ? \
+      (args) : \
      _PyArg_UnpackKeywords((args), (nargs), (kwargs), (kwnames), (parser), \
-                           (minpos), (maxpos), (minkw), (buf)))
+                           (minpos), (maxpos), (minkw), (varpos), (buf)))
+
 
 
 PyDoc_STRVAR(_curses_window_addch__doc__,
