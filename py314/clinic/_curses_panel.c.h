@@ -25,7 +25,6 @@ PyAPI_FUNC(PyObject * const *) _PyArg_UnpackKeywords(
      _PyArg_UnpackKeywords((args), (nargs), (kwargs), (kwnames), (parser), \
                            (minpos), (maxpos), (minkw), (varpos), (buf)))
 
-
 // Export for '_heapq' shared extension
 PyAPI_FUNC(void) _PyArg_BadArgument(
     const char *fname,
@@ -61,7 +60,8 @@ PyDoc_STRVAR(_curses_panel_panel_hide__doc__,
 "\n"
 "Hide the panel.\n"
 "\n"
-"This does not delete the object, it just makes the window on screen invisible.");
+"This does not delete the object, it just makes the window on screen\n"
+"invisible.");
 
 #define _CURSES_PANEL_PANEL_HIDE_METHODDEF    \
     {"hide", _PyCFunction_CAST(_curses_panel_panel_hide), METH_METHOD|METH_FASTCALL|METH_KEYWORDS, _curses_panel_panel_hide__doc__},
@@ -83,7 +83,9 @@ PyDoc_STRVAR(_curses_panel_panel_show__doc__,
 "show($self, /)\n"
 "--\n"
 "\n"
-"Display the panel (which might have been hidden).");
+"Display the panel (which might have been hidden).\n"
+"\n"
+"The panel is placed on top of the panel stack.");
 
 #define _CURSES_PANEL_PANEL_SHOW_METHODDEF    \
     {"show", _PyCFunction_CAST(_curses_panel_panel_show), METH_METHOD|METH_FASTCALL|METH_KEYWORDS, _curses_panel_panel_show__doc__},
@@ -211,7 +213,8 @@ _curses_panel_panel_move(PyObject *self, PyTypeObject *cls, PyObject *const *arg
     int y;
     int x;
 
-    args = _PyArg_UnpackKeywords(args, nargs, NULL, kwnames, &_parser, 2, 2, 0, 0, argsbuf);
+    args = _PyArg_UnpackKeywords(args, nargs, NULL, kwnames, &_parser,
+            /*minpos*/ 2, /*maxpos*/ 2, /*minkw*/ 0, /*varpos*/ 0, argsbuf);
     if (!args) {
         goto exit;
     }
@@ -387,7 +390,9 @@ PyDoc_STRVAR(_curses_panel_new_panel__doc__,
 "new_panel($module, win, /)\n"
 "--\n"
 "\n"
-"Return a panel object, associating it with the given window win.");
+"Return a panel object, associating it with the given window win.\n"
+"\n"
+"The new panel is placed on top of the panel stack.");
 
 #define _CURSES_PANEL_NEW_PANEL_METHODDEF    \
     {"new_panel", (PyCFunction)_curses_panel_new_panel, METH_O, _curses_panel_new_panel__doc__},
@@ -436,7 +441,8 @@ PyDoc_STRVAR(_curses_panel_update_panels__doc__,
 "\n"
 "Updates the virtual screen after changes in the panel stack.\n"
 "\n"
-"This does not call curses.doupdate(), so you\'ll have to do this yourself.");
+"This does not call curses.doupdate(), so you\'ll have to do this\n"
+"yourself.");
 
 #define _CURSES_PANEL_UPDATE_PANELS_METHODDEF    \
     {"update_panels", (PyCFunction)_curses_panel_update_panels, METH_NOARGS, _curses_panel_update_panels__doc__},
@@ -449,4 +455,4 @@ _curses_panel_update_panels(PyObject *module, PyObject *Py_UNUSED(ignored))
 {
     return _curses_panel_update_panels_impl(module);
 }
-/*[clinic end generated code: output=36853ecb4a979814 input=a9049054013a1b77]*/
+/*[clinic end generated code: output=8efa92ec022f1047 input=a9049054013a1b77]*/

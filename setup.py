@@ -63,7 +63,7 @@ Please tell me if the `resize_term(0, 0)` hackery causes you any trouble.
 
 setup(
     name='windows-curses',
-    version='2.4.2',
+    version='2.4.3b1',
     description="Support for the standard curses module on Windows",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
@@ -110,6 +110,7 @@ setup(
         'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: 3.13',
         'Programming Language :: Python :: 3.14',
+        'Programming Language :: Python :: 3.15',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Software Development',
         'Topic :: Software Development :: Libraries :: Python Modules',
